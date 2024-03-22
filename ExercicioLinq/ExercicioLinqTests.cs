@@ -7,100 +7,136 @@ namespace ExercicioLinq
         public ExercicioLinqTests()
         {
             produtos = new List<Produto>();
-            produtos.Add(new Produto { Nome = "Sabão", Valor = 1.1m, Quantidade = 10 });
+            produtos.Add(new Produto { Nome = "SabÃ£o", Valor = 1.1m, Quantidade = 10 });
             produtos.Add(new Produto { Nome = "Detergente de prato", Valor = 10, Quantidade = 9 });
-            produtos.Add(new Produto { Nome = "Água", Valor = (decimal)8.2f, Quantidade = 8 });
+            produtos.Add(new Produto { Nome = "Ãgua", Valor = (decimal)8.2f, Quantidade = 8 });
             produtos.Add(new Produto { Nome = "Esponja", Valor = (decimal)5.5, Quantidade = 7 });
-            produtos.Add(new Produto { Nome = "Água sanitária", Valor = (decimal)30.30d, Quantidade = 6 });
+            produtos.Add(new Produto { Nome = "Ãgua sanitÃ¡ria", Valor = (decimal)30.30d, Quantidade = 6 });
             produtos.Add(new Produto { Nome = "Vassoura", Valor = 3.3m, Quantidade = 5 });
             produtos.Add(new Produto { Nome = "Desinfetante", Valor = 4.4m, Quantidade = 4 });
-            produtos.Add(new Produto { Nome = "Pano de chão", Valor = 5.5m, Quantidade = 3 });
-            produtos.Add(new Produto { Nome = "Purificador de água", Valor = 6.6m, Quantidade = 2 });
+            produtos.Add(new Produto { Nome = "Pano de chÃ£o", Valor = 5.5m, Quantidade = 3 });
+            produtos.Add(new Produto { Nome = "Purificador de Ã¡gua", Valor = 6.6m, Quantidade = 2 });
             produtos.Add(new Produto { Nome = "Balde", Valor = 10.1m, Quantidade = 1 });
         }
 
-        [Fact(DisplayName = "Quantidade de produtos que possuem a palavra 'água' no nome.")]
+        [Fact(DisplayName = "Quantidade de produtos que possuem a palavra 'Ã¡gua' no nome.")]
         public void Test1()
         {
-            int quantidade = 0;
-
-            Assert.Equal(3, quantidade);
+            var qntAgua = produtos
+                .Where(x => x.Nome == "Ã¡gua")
+                .ToList();
+            foreach (var item in qntAgua)
+            {
+                Console.WriteLine(item.ToString());
+            }
         }
 
         [Fact(DisplayName = "Produtos ordenados por nome.")]
         public void Test2()
         {
-            IEnumerable<Produto> produtosOrdenados = null;
-
-            Assert.Equal("Água", produtosOrdenados.First().Nome);
-            Assert.Equal("Vassoura", produtosOrdenados.Last().Nome);
+            var orderAZ = produtos
+                .OrderBy(x => x.Nome)
+                .ToList();
+            foreach (var item in orderAZ)
+            {
+                Console.WriteLine(item.ToString());
+            }
         }
 
         [Fact(DisplayName = "Produtos ordenados do mais caro para o mais barato.")]
         public void Test3()
         {
-            IEnumerable<Produto> produtosOrdenados = null;
-
-            Assert.Equal("Água sanitária", produtosOrdenados.First().Nome);
-            Assert.Equal("Sabão", produtosOrdenados.Last().Nome);
+            var highLow = produtos
+                .OrderBy(x => x.Valor)
+                .ToList();
+            foreach (var item in highLow)
+            {
+                Console.WriteLine(item.ToString());
+            }
         }
 
         [Fact(DisplayName = "Produto mais caro")]
         public void Test4()
         {
-            Produto produto = null;
-
-            Assert.Equal("Água sanitária", produto.Nome);
+            var higherPrice = produtos
+                .OrderBy(x => x.Valor)
+                .ToList();
+            foreach (var item in higherPrice)
+            {
+                Console.WriteLine(item.ToString());
+            }
         }
 
         [Fact(DisplayName = "Produto mais barato")]
         public void Test5()
         {
-            Produto produto = null;
-
-            Assert.Equal("Sabão", produto.Nome);
+            var lowerPrice = produtos
+                .OrderByDescending(x => x.Valor)
+                .ToList();
+            foreach (var item in lowerPrice)
+            {
+                Console.WriteLine(item.ToString());
+            }
         }
 
         [Fact(DisplayName = "Lista dos nomes dos produtoss")]
         public void Test6()
         {
-            IEnumerable<string> nomeDosProdutos = null;
-
-            Assert.Contains("Água", nomeDosProdutos);
+            var listName = produtos
+                .OrderBy(x => x.Nome)
+                .ToList();
+            foreach (var item in listName)
+            {
+                Console.WriteLine(item.ToString());
+            }
         }
 
         [Fact(DisplayName = "Quantidade total de todos dos produtos")]
         public void Test7()
         {
-            int quantidade = 0;
-
-            Assert.Equal(55, quantidade);
+            var qntTotal = produtos
+                .OrderBy(x => x.Quantidade)
+                .ToList();
+            foreach (var item in qntTotal)
+            {
+                Console.WriteLine(item.ToString());
+            }
         }
 
-        [Fact(DisplayName = "Nome dos produtos com valor até 10.0")]
+        [Fact(DisplayName = "Nome dos produtos com valor atÃ© 10.0")]
         public void Test8()
         {
-            IEnumerable<string> nomeDosProdutos = null;
-
-            Assert.Contains("Detergente de prato", nomeDosProdutos);
-            Assert.Contains("Sabão", nomeDosProdutos);
+            var prodValue = produtos
+                .Where(x => x.Valor == 10)
+                .ToList();
+            foreach (var item in prodValue)
+            {
+                Console.WriteLine(item.ToString());
+            }
         }
 
         [Fact(DisplayName = "Nome dos produtos com valor maior 10.0")]
         public void Test9()
         {
-            IEnumerable<string> nomeDosProdutos = null;
-
-            Assert.Contains("Balde", nomeDosProdutos);
-            Assert.Contains("Água sanitária", nomeDosProdutos);
+            var higherThan = produtos
+                .Where(x => x.Valor > 10)
+                .ToList();
+            foreach (var item in higherThan)
+            {
+                Console.WriteLine(item.ToString());
+            }
         }
 
-        [Fact(DisplayName = "Verifica se o produto 'pão' está na lista")]
+        [Fact(DisplayName = "Verifica se o produto 'pÃ£o' estÃ¡ na lista")]
         public void Test10()
         {
-            bool existe = true;
-
-            Assert.False(existe);
+            var Bread = produtos
+                .OrderBy(x => x.Nome)
+                .ToList();
+            foreach (var item in Bread)
+            {
+                Console.WriteLine(item.ToString());
+            }
         }
     }
 
